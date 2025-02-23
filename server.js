@@ -10,9 +10,8 @@ const io = new Server(server, {
     },
 });
 
-const PORT = 3000;
-
-let onlineUsers = new Map();
+// Use Hamravesh Node Port (32571) dynamically
+const PORT = process.env.PORT || 32571;
 
 io.on('connection', (socket) => {
     console.log('User connected:', socket.id);
@@ -31,8 +30,8 @@ io.on('connection', (socket) => {
     });
 });
 
+// Start server on 0.0.0.0 (required for external access)
 server.listen(PORT, '0.0.0.0', () => {
-    const publicHost = process.env.PUBLIC_HOST || 'localhost';
-    console.log(`Socket.io server running at ws://${publicHost}:${PORT}`);
+    const publicHost = process.env.PUBLIC_HOST || '600b4657-489e-4f71-b9f0-af5ec8811d17.hsvc.ir';
+    console.log(`WebSocket server running at ws://${publicHost}:${PORT}`);
 });
-
