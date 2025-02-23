@@ -32,5 +32,7 @@ io.on('connection', (socket) => {
 });
 
 server.listen(PORT, '0.0.0.0', () => {
-    console.log(`Socket.io server running on port ${PORT}`);
+    const publicHost = process.env.PUBLIC_HOST || 'localhost';
+    console.log(`Socket.io server running at ws://${publicHost}:${PORT}`);
 });
+
