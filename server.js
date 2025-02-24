@@ -13,7 +13,14 @@ const io = new Server(server, {
 });
 
 // Use Hamravesh Node Port (3005) dynamically
-const PORT = process.env.PORT || 3005;
+const PORT = process.env.PORT || 3000;
+
+
+app.get('/', (req, res) => {
+    res.write(`<h1>Socket IO Start on Port : ${PORT}</h1>`);
+    res.end();
+});
+
 
 io.on('connection', (socket) => {
     console.log('User connected:', socket.id);
@@ -33,6 +40,6 @@ io.on('connection', (socket) => {
 });
 
 // Start server on 0.0.0.0 (required for external access)
-app.listen(3005, () =>
+app.listen(3000, () =>
     console.log(`app listening on port 3005 on ${LIARA_URL}`)
   );
