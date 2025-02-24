@@ -5,6 +5,10 @@ const { Server } = require('socket.io');
 const app = express();
 const server = http.createServer(app);
 const LIARA_URL = process.env.LIARA_URL || "localhost";
+const cors = require("cors");
+
+app.use(cors({ origin: "*" })); // Allow all origins
+
 
 const io = new Server(server, {
     cors: {
