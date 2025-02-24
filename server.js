@@ -27,10 +27,7 @@ const io = new Server(server, {
 const PORT = process.env.PORT || 3000;
 
 
-app.get('/', (req, res) => {
-    res.write(`<h1>Socket IO Start on Port : ${PORT}</h1>`);
-    res.end();
-});
+ 
 
 
 io.on('connection', (socket) => {
@@ -49,7 +46,24 @@ io.on('connection', (socket) => {
         console.log('User disconnected:', socket.id);
     });
 });
-
+app.get("/", (req, res) => {
+    res.writeHead(200, { "Content-Type": "text/html" });
+    res.write(`<h1>✅ Socket.IO Running on Port: ${PORT}</h1>`);
+  
+    // Check if WebSocket Server is initialized
+    if (io) {
+      res.write(`<p>🟢 WebSocket Server is initialized</p>`);
+    } else {
+      res.write(`<p>🔴 WebSocket Server is NOT initialized</p>`);
+    }
+  
+    // Display connected clients
+    const clients = io.sockets.sockets.size;
+    res.write(`<p>👥 Connected Clients: ${clients}</p>`);
+  
+    res.end();
+  });
+  
 // Start server on 0.0.0.0 (required for external access)
 app.listen(3000, "0.0.0.0",() =>
     console.log(`app listening on port 3000 on ${LIARA_URL}`)
