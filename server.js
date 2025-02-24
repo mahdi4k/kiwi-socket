@@ -50,7 +50,7 @@ app.get("/", (req, res) => {
     res.writeHead(200, { "Content-Type": "text/html" });
     res.write(`<h1>✅ Socket.IO Running on Port: ${PORT}</h1>`);
   
-    // Check if WebSocket Server is initialized
+    
     if (io) {
       res.write(`<p>🟢 WebSocket Server is initialized</p>`);
     } else {
