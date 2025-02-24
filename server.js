@@ -7,15 +7,22 @@ const server = http.createServer(app);
 const LIARA_URL = process.env.LIARA_URL || "localhost";
 const cors = require("cors");
 
-app.use(cors({ origin: "*" })); // Allow all origins
-
+app.use(
+    cors({
+      origin: "*", // Allow all origins
+      methods: ["GET", "POST"],
+      allowedHeaders: ["Content-Type"],
+    })
+  );
 
 const io = new Server(server, {
     cors: {
-        origin: '*',
+      origin: "*", // Allow frontend connections
+      methods: ["GET", "POST"],
+      allowedHeaders: ["Content-Type"],
     },
-});
-
+  });
+  
 // Use Hamravesh Node Port (3005) dynamically
 const PORT = process.env.PORT || 3000;
 
@@ -44,6 +51,6 @@ io.on('connection', (socket) => {
 });
 
 // Start server on 0.0.0.0 (required for external access)
-app.listen(3000, () =>
-    console.log(`app listening on port 3005 on ${LIARA_URL}`)
+app.listen(3000, "0.0.0.0",() =>
+    console.log(`app listening on port 3000 on ${LIARA_URL}`)
   );
