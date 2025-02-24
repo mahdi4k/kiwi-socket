@@ -4,14 +4,16 @@ const { Server } = require('socket.io');
 
 const app = express();
 const server = http.createServer(app);
+const LIARA_URL = process.env.LIARA_URL || "localhost";
+
 const io = new Server(server, {
     cors: {
         origin: '*',
     },
 });
 
-// Use Hamravesh Node Port (32571) dynamically
-const PORT = process.env.PORT || 32571;
+// Use Hamravesh Node Port (3005) dynamically
+const PORT = process.env.PORT || 3005;
 
 io.on('connection', (socket) => {
     console.log('User connected:', socket.id);
@@ -31,7 +33,6 @@ io.on('connection', (socket) => {
 });
 
 // Start server on 0.0.0.0 (required for external access)
-server.listen(PORT, '0.0.0.0', () => {
-    const publicHost = process.env.PUBLIC_HOST || '600b4657-489e-4f71-b9f0-af5ec8811d17.hsvc.ir';
-    console.log(`WebSocket server running at ws://${publicHost}:${PORT}`);
-});
+app.listen(3005, () =>
+    console.log(`app listening on port 3005 on ${LIARA_URL}`)
+  );
